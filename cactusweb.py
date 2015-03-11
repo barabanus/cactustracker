@@ -266,12 +266,12 @@ class CactusHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 mode, heater = int(row[4]), int(row[5])
                 heaterFrom, heaterTo = float(row[6]), float(row[7])
             dataTemp.append((date, temp, heater))
-            dataHumidity.append((date, humidity, heater))
+            dataHumidity.append((date, humidity, 0))
 
         graphTemp = self.generate_graph(dataTemp, u"Temperature, °C",
                     smooth = smooth, height = 350, nbins = 11, minor = True, grey = False)
         graphHumidity = self.generate_graph(dataHumidity, u"Humidity, %",
-                    smooth = smooth, height = 275, nbins = 5, minor = False, grey = True)
+                    smooth = smooth, height = 200, nbins = 5, minor = False, grey = True)
 
         pending = pending or os.path.isfile(CMDFILE)
         self.wfile.write(re.sub(r"{\s", r"{{ ", re.sub(r"\s}", r" }}", """
