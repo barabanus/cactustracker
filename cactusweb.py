@@ -322,25 +322,22 @@ class CactusHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         <div>{graphTemp}</div>
         <div style="margin-top: -15px;">{graphHumidity}</div>
         <div class="control">
-            <table width="100%" cellspacing=0 cellpadding=0 border=0>
-                <tr>
-                    <td>
-                        <form action="/" class="{pending}">
+            <form action="/" class="{pending}">
+                <button type="submit"
+                        style="visibility: hidden;" {disabled}></button>
+
+                <table width="100%" cellspacing=0 cellpadding=0 border=0>
+                    <tr>
+                        <td>
                             Light:
 
-                            <button type="submit" name="light" 
+                            <button type="submit" name="light"
                                     class="{lightOn}"   value="1" {disabled}> on   </button>
-                            <button type="submit" name="light" 
+                            <button type="submit" name="light"
                                     class="{lightOff}"  value="0" {disabled}> off  </button>
+                        </td>
 
-                            <input type="hidden" name="mode" value="{mode}"/>
-                            <input type="hidden" name="hfrom" value="{heaterFrom:.0f}"/>
-                            <input type="hidden" name="hto" value="{heaterTo:.0f}"/>
-                        </form>
-                    </td>
-
-                    <td>
-                        <form action="/" class="{pending}">
+                        <td>
                             Heater:
 
                             <button type="submit" name="mode"
@@ -349,35 +346,30 @@ class CactusHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                                     class="{modeOff}"  value="0" {disabled}> off  </button>
                             <button type="submit" name="mode"
                                     class="{modeAuto}" value="2" {disabled}> auto </button>
+                        </td>
 
-                            <input type="hidden" name="light" value="{light}"/>
-                            <input type="hidden" name="hfrom" value="{heaterFrom:.0f}"/>
-                            <input type="hidden" name="hto" value="{heaterTo:.0f}"/>
-                        </form>
-                    </td>
+                        <td>
+                            <span class="{heaterAuto}">
+                                heat from
+                                <input name="hfrom" class="heater" maxlength=2
+                                       value="{heaterFrom:.0f}" {disabled}/>
+                                to <input name="hto" class="heater" maxlength=2
+                                       value="{heaterTo:.0f}" {disabled}/>
+                                &deg;C
+                            </span>
+                        </td>
 
-                    <td>
-                        <form action="/" class="{pending} {heaterAuto}">
-                            <input type="hidden" name="mode" value="{mode}"/>
-                            heat from 
-                            <input name="hfrom" class="heater" maxlength=2 
-                                   value="{heaterFrom:.0f}" {disabled}/>
-                            to <input name="hto" class="heater" maxlength=2
-                                   value="{heaterTo:.0f}" {disabled}/>
-                            &deg;C
-                            <button type="submit" 
-                                    style="visibility: hidden;" {disabled}></button>
+                        <td style="opacity: 0.5;" align=right>
+                            The last {days} days are shown
+                        </td>
+                    </tr>
+                </table>
 
-                            <input type="hidden" name="light" value="{light}"/>
-                            <input type="hidden" name="mode" value="{mode}"/>
-                        </form>
-                    </td>
-
-                    <td style="opacity: 0.5;" align=right>
-                        The last {days} days are shown
-                    </td>
-                </tr>
-            </table>
+                <input type="hidden" name="light" value="{light}"/>
+                <input type="hidden" name="mode" value="{mode}"/>
+                <input type="hidden" name="hfrom" value="{heaterFrom:.0f}"/>
+                <input type="hidden" name="hto" value="{heaterTo:.0f}"/>
+            </form>
         </div>
         <div style="position: absolute; top: 7px; left: 760px;">
             <img src="cactus.png">
